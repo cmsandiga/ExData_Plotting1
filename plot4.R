@@ -1,6 +1,11 @@
+png("./plot4.png", width=480, height=480)
 par(mfrow = c(2,2))
 
-raw_data <- read.csv("./household_power_consumption.txt", sep = ";", stringsAsFactors = F)
+temp <- tempfile()
+download.file("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip",temp)
+file <- unz(temp, "household_power_consumption.txt")
+raw_data <- read.csv(file, sep = ";", stringsAsFactors = F)
+
 raw_data$Date <- as.Date(raw_data$Date, format='%d/%m/%Y')
 raw_data$Time <- strptime(paste(raw_data$Date,raw_data$Time), "%Y-%m-%d %H:%M:%S")
 
@@ -28,9 +33,9 @@ plot(data$Time,data$Voltage, type = "l", ylab="Voltage", xlab = "datetime")
 with(data, plot(Time, Sub_metering_1, type="l", xlab = "", ylab="Energy sub metering"))
 with(subset(data), points(Time, Sub_metering_2, type="l",col="red"))
 with(subset(data), points(Time, Sub_metering_3, type="l",col="blue"))
-legend("topright", pch="-",lwd=2, col=c("black","red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), bty = "n")
+legend("topright", pch="-",lwd=1, col=c("black","red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), bty = "n")
 
 # 4 - DateTime vs Global Reactive Power
-plot(data$Time,data$Global_reactive_power, type = "l", ylab="Global_Reactive_Power", xlab = "datetime")
-dev.copy(png,"./plot4.png", width=480, height=480)
+plot(data$Time,data$Global_reactive_power, type = "l", ylab="Global_reactive_power", xlab = "datetime")
+
 dev.off()
