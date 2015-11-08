@@ -1,3 +1,4 @@
+png("./plot2.png", width=480, height=480)
 temp <- tempfile()
 download.file("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip",temp)
 file <- unz(temp, "household_power_consumption.txt")
@@ -15,6 +16,5 @@ data <- subset(raw_data, Date == d1 | Date == d2)
 Sys.setlocale("LC_TIME", "en_US.UTF-8")
 plot(data$Time,data$Global_active_power, type = "l", ylab="Global Active Power (kilowatts)", xlab = "")
 
-dev.copy(png,"./plot2.png", width=480, height=480)
 dev.off()
 

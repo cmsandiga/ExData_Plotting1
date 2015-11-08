@@ -1,3 +1,5 @@
+png("./plot1.png", width=480, height=480)
+
 temp <- tempfile()
 download.file("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip",temp)
 file <- unz(temp, "household_power_consumption.txt")
@@ -14,5 +16,4 @@ data <- subset(raw_data, Date == d1 | Date == d2)
 
 hist(data$Global_active_power, col="red", xlab = "Global Active Power (kilowatts)", main='Global Active Power')
 
-dev.copy(png,"./plot1.png", width=480, height=480)
 dev.off()
